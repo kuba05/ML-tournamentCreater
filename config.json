@@ -7,6 +7,9 @@ pts_for_bye: 3.0
 swiss_rounds: 5
 open_signup: True
 tournament_type: "swiss"
+notify_users_when_matches_open: False
+notify_users_when_the_tournament_ends: False
+signup_cap: 256
 description: >
     <p style="text-align: center;">
         <strong>{name}</strong>

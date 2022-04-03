@@ -1,11 +1,15 @@
 import yaml
 import challonge
-import sys
-
+import sys 
 
 URL = "https://api.challonge.com/v1/tournaments"
 
 user = "gavlna"
+
+with open("password.txt") as passwordFile:
+    password = passwordFile.read()
+
+print(password)
 
 def setup(user, password):
     challonge.set_credentials(user, password)
@@ -52,3 +56,6 @@ if mode == "c":
     config.close()
     
     createTournament(**b)
+
+if mode == "d":
+    pass
