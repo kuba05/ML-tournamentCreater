@@ -1,0 +1,41 @@
+name: test
+game_name: "Magic The Gathering"
+description: desc
+pts_for_match_win: 3.0
+pts_for_match_tie: 1.0
+pts_for_bye: 3.0
+swiss_rounds: 5
+open_signup: True
+tournament_type: "swiss"
+notify_users_when_matches_open: False
+notify_users_when_the_tournament_ends: False
+signup_cap: 256
+description: >
+    <p style="text-align: center;">
+        <strong>{name}</strong>
+    </p>
+    <p style="text-align: center;">
+        For all tournament details please follow our community on&nbsp;
+        <a href="https://discord.gg/r8njzKu" title="&quot;Magic Mage Masters&quot; Discord server" target="_blank" rel="nofollow noopener noref00errer">
+            <strong>Discord</strong>
+        </a>
+        &nbsp;as well as&nbsp;
+        
+        <a href="https://challonge.com/communities/magic-mage-masters" title="&quot;Magic Mage Masters&quot; Challonge community" target="_blank" rel="nofollow noopener noreferrer">
+            <strong>Challonge</strong>
+        </a>.
+    </p><br>
+    <p style="text-align: center;">
+        <strong>Tournament costs</strong>
+    </p>
+    <p style="text-align: center;">100% free, no entry fee!</p>
+    <p>
+        <strong>
+        </strong>
+        <br>
+        <strong>
+        </strong>
+    </p>
+    <p style="box-sizing: border-box; margin: 0px; text-align: center;">
+        <strong>Tournament prize pool to be announced!</strong>
+    </p>

@@ -1,8 +1,9 @@
 import yaml
 import challonge
-import sys 
+import sys
 
 URL = "https://api.challonge.com/v1/tournaments"
+
 
 
 
@@ -18,24 +19,24 @@ def setup():
     
     #TODO: loads credentials from an external file, this should, in future, be done through the environment
     
-    with open("../config/credentials.yaml") as credentialsFile:
+    with open("config/credentials.yaml") as credentialsFile:
         credentials = yaml.safe_load(credentialsFile.read())
 
-    if "username" not in credentials or "password" not in credentials:
+    if "username" not in credentials or "APIKey" not in credentials:
         raise ValueError("both username and password shall be provided in the credentails.yaml file!")
-    if credentials["username"] == None or credentials["password"] == None:
+    if credentials["username"] == None or credentials["APIKey"] == None:
         raise ValueError("Please make sure to fill in real values in the credentials config!")
     
-    challonge.set_credentials(credentials["username"], credentials["password"])
+    challonge.set_credentials(credentials["username"], credentials["APIKey"])
 
 
-def formateParams(**params):
+def formateParams(params, formatingDict):
     """
     given a dict of unformated parameters, it will format each of the values (i.e. call .format on them)
     """
     formatedParams = {}
     for key in params:
-        formatedParams[key] = params[key].format()
+        formatedParams[key] = str(params[key]).format(**formatingDict)
         
     return formatedParams
     
@@ -47,13 +48,16 @@ def createTournament(**params):
     name is required!
     
     """
-    
     myParams = {"url": None}
     myParams.update(params)
-    print(myParams)
+    
     a = challonge.tournaments.create(**myParams)
-    print(a["id"])
-    print(a, file=sys.stderr)
+    
+    with open("../log", "w") as log:
+        print(a, file=log)
+        
+    return a["id"]
+
 
 def deleteTournament(id):
     """
@@ -62,17 +66,24 @@ def deleteTournament(id):
     challonge.tournaments.destroy(id)
 
 
-
-
-mode = sys.argv[1]
-setup()
-print(sys.argv)
-if mode == "c":
+def main(config, deleteAfterwards, formatingDict):
+    """
+    config is the yaml read from the config file
     
-    with open("../config/config.yaml") as configFile:
-        config = yaml.safe_load(configFile.read())
+    deleteAfterwards is a switch that tells us if we should delete the tournament before terminating
     
-    createTournament(**config)
+    keywords are the words that will be used in the template
+    """
 
-if mode == "d":
-    deleteTournament(sys.argv(2))
+    setup()
+    tournamentId = createTournament(**formateParams(config, formatingDict))
+    
+    if deleteAfterwards:
+        while True:
+            answer = input("do you want to delete the tournament? [Y/N]")
+            if answer[0].lower == "n":
+                break
+            if answer[0].lower == "y":
+                deleteTournament(tournamentId)
+                break
+            
