@@ -37,7 +37,7 @@ def formateParams(params, formatingDict):
     formatedParams = {}
     for key in params:
         formatedParams[key] = str(params[key]).format(**formatingDict)
-        
+    print(formatedParams)
     return formatedParams
     
     
@@ -81,9 +81,9 @@ def main(config, deleteAfterwards, formatingDict):
     if deleteAfterwards:
         while True:
             answer = input("do you want to delete the tournament? [Y/N]")
-            if answer[0].lower == "n":
+            if answer[0].lower() == "n":
                 break
-            if answer[0].lower == "y":
+            if answer[0].lower() == "y":
                 deleteTournament(tournamentId)
                 break
             

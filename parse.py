@@ -11,8 +11,8 @@ parser = argparse.ArgumentParser(description=description)
 parser.add_argument("config", type=open, help="config file according to which the tournament shall be created")
 
 
-parser.add_argument("--name", "-n", nargs = 1, help="this is a value that can be used in the configs")
-parser.add_argument("--number", "-N", nargs = 1, help="this is a value that can be used in the configs")
+parser.add_argument("--name", "-n", help="this is a value that can be used in the configs")
+parser.add_argument("--number", "-N", help="this is a value that can be used in the configs")
 parser.add_argument("--delete", "-d", action='store_true', help="gives the user an option to delete the tournament after it is created")
 
 values = parser.parse_args()

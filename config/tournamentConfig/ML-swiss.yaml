@@ -1,4 +1,5 @@
-name: test
+name: "Modern Leaders #{number} (European Region)"
+url: mmm_ml{number}_europe
 game_name: "Magic The Gathering"
 description: desc
 pts_for_match_win: 3.0
