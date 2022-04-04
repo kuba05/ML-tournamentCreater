@@ -4,15 +4,26 @@ import sys
 
 URL = "https://api.challonge.com/v1/tournaments"
 
-user = "gavlna"
 
-with open("password.txt") as passwordFile:
-    password = passwordFile.read()
 
-print(password)
 
-def setup(user, password):
-    challonge.set_credentials(user, password)
+
+
+def setup():
+    """
+    Prepares Challonge for usage.
+    
+    Should be called before any other actions with Challonge library are taken
+    """    
+    
+    #TODO: loads credentials from an external file, this should, in future, be done through the environment
+    
+    with open("credentials.yaml") as credentialsFile:
+        credentials = yaml.safe_load(credentialsFile.read())
+
+    if "username" not in credentials or "password" not in credentials:
+        raise ValueError("both username and password shall be provided in the credentails.yaml file!")
+    challonge.set_credentials(credentials.user, credentials.password)
 
 
 def formateParams(**params):
@@ -41,21 +52,24 @@ def createTournament(**params):
     print(a["id"])
     print(a, file=sys.stderr)
 
+def deleteTournament(id):
+    """
+    will delete tournament with given id
+    """
+    challonge.tournaments.destroy(id)
 
 
-setup(user, password)
+
 
 mode = sys.argv[1]
+setup()
 print(sys.argv)
 if mode == "c":
     
-    if len(sys.argv) > 2: challonge.tournaments.destroy(sys.argv[2])
+    with open("./config.json") as configFile:
+        config = yaml.safe_load(configFile.read())
     
-    config = open("./config.json")
-    b = yaml.safe_load(config.read())
-    config.close()
-    
-    createTournament(**b)
+    createTournament(**config)
 
 if mode == "d":
-    pass
+    deleteTournament(sys.argv(2))
