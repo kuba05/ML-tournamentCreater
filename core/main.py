@@ -18,12 +18,15 @@ def setup():
     
     #TODO: loads credentials from an external file, this should, in future, be done through the environment
     
-    with open("credentials.yaml") as credentialsFile:
+    with open("../config/credentials.yaml") as credentialsFile:
         credentials = yaml.safe_load(credentialsFile.read())
 
     if "username" not in credentials or "password" not in credentials:
         raise ValueError("both username and password shall be provided in the credentails.yaml file!")
-    challonge.set_credentials(credentials.user, credentials.password)
+    if credentials["username"] == None or credentials["password"] == None:
+        raise ValueError("Please make sure to fill in real values in the credentials config!")
+    
+    challonge.set_credentials(credentials["username"], credentials["password"])
 
 
 def formateParams(**params):
@@ -66,7 +69,7 @@ setup()
 print(sys.argv)
 if mode == "c":
     
-    with open("./config.json") as configFile:
+    with open("../config/config.yaml") as configFile:
         config = yaml.safe_load(configFile.read())
     
     createTournament(**config)
