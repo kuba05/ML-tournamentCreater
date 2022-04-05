@@ -16,7 +16,7 @@ def setup():
     
     Should be called before any other actions with Challonge library are taken
     """    
-    
+    print("setuping!")
     #TODO: loads credentials from an external file, this should, in future, be done through the environment
     
     with open("config/credentials.yaml") as credentialsFile:
@@ -37,7 +37,6 @@ def formateParams(params, formatingDict):
     formatedParams = {}
     for key in params:
         formatedParams[key] = str(params[key]).format(**formatingDict)
-    print(formatedParams)
     return formatedParams
     
     
