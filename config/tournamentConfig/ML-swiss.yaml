@@ -13,7 +13,7 @@ notify_users_when_the_tournament_ends: False
 signup_cap: 256
 description: >
     <p style="text-align: center;">
-        <strong>{name}</strong>
+        <strong>Modern Leaders #{number}</strong>
     </p>
     <p style="text-align: center;">
         For all tournament details please follow our community on&nbsp;
