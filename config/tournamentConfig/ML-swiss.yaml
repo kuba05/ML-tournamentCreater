@@ -1,5 +1,5 @@
 name: "Modern Leaders #{number} (European Region)"
-url: mmm_ml{number}_europe
+url: mmm_ml{number}_europe{url_suffix}
 game_name: "Magic The Gathering"
 description: desc
 pts_for_match_win: 3.0
@@ -7,9 +7,14 @@ pts_for_match_tie: 1.0
 pts_for_bye: 3.0
 swiss_rounds: 5
 open_signup: True
+predict_the_losers_bracket: False
+ranked_by: 'match wins'
+tie_breaks: ['match wins vs tied', 'median buchholz', 'points difference']
+teams: False
+public_predictions_before_start_time: False
 tournament_type: "swiss"
-notify_users_when_matches_open: False
-notify_users_when_the_tournament_ends: False
+notify_users_when_matches_open: True
+notify_users_when_the_tournament_ends: True
 signup_cap: 256
 description: >
     <p style="text-align: center;">

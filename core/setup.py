@@ -15,7 +15,7 @@ def getLogin():
                 
     try:
         with open("config/credentials.yaml") as credentials:
-            loaded = yaml.safe_load(credentials.read())
+            loaded = yaml.safe_load(credentials)
             return {"username": loaded["username"], "APIKey": loaded["APIKey"]}
     except Exception:
         return {"username": None, "APIKey": None}

@@ -37,7 +37,10 @@ def formateParams(params, formatingDict):
     """
     formatedParams = {}
     for key in params:
-        formatedParams[key] = str(params[key]).format(**formatingDict)
+        if type(params[key]) != type(""):
+            formatedParams[key] = params[key]
+            continue
+        formatedParams[key] = params[key].format(**formatingDict)
     return formatedParams
     
 def safeRequest(request):
@@ -51,7 +54,7 @@ def safeRequest(request):
     try:
         return request()
     except requests.exceptions.RequestException as e:
-        with open("../log", "w") as log:
+        with open("log", "w") as log:
             print(e, file=log)
         
         #401 == unauthorized    
@@ -80,12 +83,12 @@ def createTournament(**params):
     """
     myParams = {"url": None}
     myParams.update(params)
-    
+    print(myParams)
     a = safeRequest(lambda: challonge.tournaments.create(**myParams))
     
     print("tournament created")
     
-    with open("../log", "w") as log:
+    with open("log", "w") as log:
         print(a, file=log)
         
     return a["id"]
@@ -95,8 +98,14 @@ def deleteTournament(id):
     """
     will delete tournament with given id
     """
-    safeRequest(challonge.tournaments.destroy(id))
+    safeRequest(lambda: challonge.tournaments.destroy(id))
 
+def readTournament(id):
+    """
+    will delete tournament with given id
+    """
+    print(safeRequest(lambda: challonge.tournaments.show(id)), file=sys.stderr)
+    
 
 def main(config, deleteAfterwards, formatingDict):
     """
@@ -108,6 +117,7 @@ def main(config, deleteAfterwards, formatingDict):
     """
 
     setupChallonge()
+    
     try:
         tournamentId = createTournament(**formateParams(config, formatingDict))
     except ConnectionError as e:

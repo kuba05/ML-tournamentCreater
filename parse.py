@@ -21,4 +21,4 @@ values = parser.parse_args()
 
 
 setup()
-main(yaml.safe_load(values.config.read()), values.delete, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix})
+main(yaml.safe_load(values.config), values.delete, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix})
