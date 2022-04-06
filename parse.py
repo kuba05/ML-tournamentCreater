@@ -12,12 +12,13 @@ parser = argparse.ArgumentParser(description=description)
 
 parser.add_argument("config", type=open, help="config file according to which the tournament shall be created")
 
-parser.add_argument("--name", "-n", help="this is a value that can be used in the configs")
-parser.add_argument("--number", "-N", help="this is a value that can be used in the configs")
+parser.add_argument("--name", "-n", default="", help="this is a value that can be used in the configs")
+parser.add_argument("--number", "-N", default="", help="this is a value that can be used in the configs")                                           
+parser.add_argument("--url_suffix", "-u", default="", help="this is a value that can be used in the configs")
 parser.add_argument("--delete", "-d", action='store_true', help="gives the user an option to delete the tournament after it is created")
 
 values = parser.parse_args()
-print(values)
+
 
 setup()
-main(yaml.safe_load(values.config.read()), values.delete, {"name": values.name, "number": values.number})
+main(yaml.safe_load(values.config.read()), values.delete, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix})

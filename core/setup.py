@@ -4,12 +4,9 @@ def isLogedIn():
     """
     checks if user have filled credentials
     """
-    try:
-        with open("config/credentials.yaml") as credentials:
-            loaded = yaml.safe_load(credentials.read())
-            return "APIKey" in loaded and loaded["APIKey"] != None and "username" in loaded and loaded["username"] != None
-    except FileNotFoundError:
-        return False
+    login = getLogin()
+    return login["username"] != None and login["APIKey"] != None
+    
 
 def getLogin():
     """
@@ -19,9 +16,9 @@ def getLogin():
     try:
         with open("config/credentials.yaml") as credentials:
             loaded = yaml.safe_load(credentials.read())
-            return loaded
+            return {"username": loaded["username"], "APIKey": loaded["APIKey"]}
     except Exception:
-        return {"username":"", "APIKey": None}
+        return {"username": None, "APIKey": None}
 
 def setup():
     """
