@@ -106,7 +106,23 @@ def readTournament(id):
     """
     print(safeRequest(lambda: challonge.tournaments.show(id)), file=sys.stderr)
     
-
+def preproccessConfig(config):
+    """
+    there are many fields in the config we do not care about in this part
+    and the rest needs to be in different format for challonge to work
+    """
+    parsedConfig = {}
+    for key in config:
+        if "[" not in key:
+            pass
+        splited = key[:-1].split("[", 1)
+        if splited[0] != "tournament":
+            continue
+        parsedConfig[splited[1]] = config[key]
+    
+    print(parsedConfig)
+    return parsedConfig
+        
 def main(config, deleteAfterwards, formatingDict):
     """
     config is the yaml read from the config file
@@ -117,9 +133,9 @@ def main(config, deleteAfterwards, formatingDict):
     """
 
     setupChallonge()
-    
+    parsedConfig = preproccessConfig(config)
     try:
-        tournamentId = createTournament(**formateParams(config, formatingDict))
+        tournamentId = createTournament(**formateParams(parsedConfig, formatingDict))
     except ConnectionError as e:
         print()  
         print("\n".join(e.args))

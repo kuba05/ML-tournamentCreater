@@ -16,9 +16,9 @@ parser.add_argument("--name", "-n", default="", help="this is a value that can b
 parser.add_argument("--number", "-N", default="", help="this is a value that can be used in the configs")                                           
 parser.add_argument("--url_suffix", "-u", default="", help="this is a value that can be used in the configs")
 parser.add_argument("--delete", "-d", action='store_true', help="gives the user an option to delete the tournament after it is created")
-
+parser.add_argument("--date", "-D", help="Date of the tournament. Use format: YYYY-MM-DD-HH:mm:SS (UTC+0)")
 values = parser.parse_args()
 
 
 setup()
-main(yaml.safe_load(values.config), values.delete, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix})
+main(yaml.safe_load(values.config), values.delete, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix, "date": values.date})
