@@ -1,8 +1,9 @@
 import argparse
 import yaml
 
-from core.main import main
+from core.main import createTournament, deleteTournament
 from core.setup import setup
+from core.sel.main import prepare, addjustSettings, stopSelenium
 
 description = """
 This is a MMM tournament creation app. It's aim is to make creating MMM tournaments on Challonge easier and faster.
@@ -19,6 +20,15 @@ parser.add_argument("--delete", "-d", action='store_true', help="gives the user 
 parser.add_argument("--date", "-D", help="Date of the tournament. Use format: YYYY-MM-DD-HH:mm:SS (UTC+0)")
 values = parser.parse_args()
 
-
+config = yaml.safe_load(values.config)
 setup()
-main(yaml.safe_load(values.config), values.delete, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix, "date": values.date})
+#tournamentURL = createTournament(config, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix, "date": values.date})
+tournamentURL="mmm_ml_europe"
+selenium = prepare()
+
+addjustSettings(selenium, tournamentURL, config)
+
+stopSelenium(selenium)
+
+if values.delete:
+    deleteTournament()

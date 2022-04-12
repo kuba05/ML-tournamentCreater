@@ -14,7 +14,7 @@ URL = "https://api.challonge.com/v1/tournaments"
 
 
 
-def setupChallonge():
+def _setupChallonge():
     """
     Prepares Challonge for usage.
     
@@ -31,7 +31,7 @@ def setupChallonge():
     challonge.set_credentials(credentials["username"], credentials["APIKey"])
 
 
-def formateParams(params, formatingDict):
+def _formateParams(params, formatingDict):
     """
     given a dict of unformated parameters, it will format each of the values (i.e. call .format on them)
     """
@@ -43,7 +43,7 @@ def formateParams(params, formatingDict):
         formatedParams[key] = params[key].format(**formatingDict)
     return formatedParams
     
-def safeRequest(request):
+def _safeRequest(request):
     """
     makes a reqest while handling all exceptions
     
@@ -74,7 +74,7 @@ def safeRequest(request):
         raise ConnectionError(*e.args)
         
     
-def createTournament(**params):
+def _createTournament(**params):
     """
     will create a new tournament with given parameters
     
@@ -84,29 +84,29 @@ def createTournament(**params):
     myParams = {"url": None}
     myParams.update(params)
     print(myParams)
-    a = safeRequest(lambda: challonge.tournaments.create(**myParams))
+    a = _safeRequest(lambda: challonge.tournaments.create(**myParams))
     
     print("tournament created")
     
     with open("log", "w") as log:
         print(a, file=log)
         
-    return a["id"]
+    return a["url"]
 
 
-def deleteTournament(id):
+def _deleteTournament(id):
     """
     will delete tournament with given id
     """
-    safeRequest(lambda: challonge.tournaments.destroy(id))
+    _safeRequest(lambda: challonge.tournaments.destroy(id))
 
-def readTournament(id):
+def _readTournament(id):
     """
     will delete tournament with given id
     """
-    print(safeRequest(lambda: challonge.tournaments.show(id)), file=sys.stderr)
+    print(_safeRequest(lambda: challonge.tournaments.show(id)), file=sys.stderr)
     
-def preproccessConfig(config):
+def _preproccessConfig(config):
     """
     there are many fields in the config we do not care about in this part
     and the rest needs to be in different format for challonge to work
@@ -123,7 +123,7 @@ def preproccessConfig(config):
     print(parsedConfig)
     return parsedConfig
         
-def main(config, deleteAfterwards, formatingDict):
+def createTournament(config, formatingDict):
     """
     config is the yaml read from the config file
     
@@ -132,25 +132,26 @@ def main(config, deleteAfterwards, formatingDict):
     keywords are the words that will be used in the template
     """
 
-    setupChallonge()
-    parsedConfig = preproccessConfig(config)
+    _setupChallonge()
+    parsedConfig = _preproccessConfig(config)
     try:
-        tournamentId = createTournament(**formateParams(parsedConfig, formatingDict))
+        tournamentURL = _createTournament(**_formateParams(parsedConfig, formatingDict))
     except ConnectionError as e:
         print()  
         print("\n".join(e.args))
         return
+    
+    return tournamentURL
         
-        
-    if deleteAfterwards:
-        while True:
-            answer = input("do you want to delete the tournament? [Y/N]")
-            if len(answer) == 0:
-                continue
-                
-            if answer[0].lower() == "n":
-                break
-            if answer[0].lower() == "y":
-                deleteTournament(tournamentId)
-                break
+def deleteTournament(): 
+    while True:
+        answer = input("do you want to delete the tournament? [Y/N]")
+        if len(answer) == 0:
+            continue
             
+        if answer[0].lower() == "n":
+            break
+        if answer[0].lower() == "y":
+            _deleteTournament(tournamentId)
+            break
+        
