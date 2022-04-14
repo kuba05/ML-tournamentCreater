@@ -21,27 +21,15 @@ def _setupChallonge():
     Should be called before any other actions with Challonge library are taken
     """    
     print("setuping!")
-    #TODO: loads credentials from an external file, this should, in future, be done through the environment
-    
+
+    if not setup.isLoggedIn():
+        raise ValueError("Username or API key are not filled in!")
+        
     credentials = setup.getLogin()
 
-    if credentials["username"] == None or credentials["APIKey"] == None:
-        raise ValueError("Username or API key are not filled in!")
-    
     challonge.set_credentials(credentials["username"], credentials["APIKey"])
 
-
-def _formateParams(params, formatingDict):
-    """
-    given a dict of unformated parameters, it will format each of the values (i.e. call .format on them)
-    """
-    formatedParams = {}
-    for key in params:
-        if type(params[key]) != type(""):
-            formatedParams[key] = params[key]
-            continue
-        formatedParams[key] = params[key].format(**formatingDict)
-    return formatedParams
+    
     
 def _safeRequest(request):
     """
@@ -74,6 +62,7 @@ def _safeRequest(request):
         raise ConnectionError(*e.args)
         
     
+    
 def _createTournament(**params):
     """
     will create a new tournament with given parameters
@@ -94,17 +83,22 @@ def _createTournament(**params):
     return a["url"]
 
 
+
 def _deleteTournament(id):
     """
     will delete tournament with given id
     """
     _safeRequest(lambda: challonge.tournaments.destroy(id))
 
+
+
 def _readTournament(id):
     """
     will delete tournament with given id
     """
     print(_safeRequest(lambda: challonge.tournaments.show(id)), file=sys.stderr)
+
+
     
 def _preproccessConfig(config):
     """
@@ -123,19 +117,17 @@ def _preproccessConfig(config):
     print(parsedConfig)
     return parsedConfig
         
-def createTournament(config, formatingDict):
+        
+        
+def createTournament(config):
     """
-    config is the yaml read from the config file
-    
-    deleteAfterwards is a switch that tells us if we should delete the tournament before terminating
-    
-    keywords are the words that will be used in the template
+    config is dictionary of options that will be passed to the API
     """
 
     _setupChallonge()
     parsedConfig = _preproccessConfig(config)
     try:
-        tournamentURL = _createTournament(**_formateParams(parsedConfig, formatingDict))
+        tournamentURL = _createTournament(**parsedConfig)
     except ConnectionError as e:
         print()  
         print("\n".join(e.args))
@@ -143,7 +135,12 @@ def createTournament(config, formatingDict):
     
     return tournamentURL
         
-def deleteTournament(): 
+        
+        
+def deleteTournament(tournamentId):
+    """
+    ask user if he really wishes to delete tournament and if yes delete it
+    """ 
     while True:
         answer = input("do you want to delete the tournament? [Y/N]")
         if len(answer) == 0:

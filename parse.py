@@ -2,7 +2,7 @@ import argparse
 import yaml
 
 from core.main import createTournament, deleteTournament
-from core.setup import setup
+from core.setup import setup, formateConfig
 from core.sel.main import prepare, addjustSettings, stopSelenium
 
 description = """
@@ -21,14 +21,21 @@ parser.add_argument("--date", "-D", help="Date of the tournament. Use format: YY
 values = parser.parse_args()
 
 config = yaml.safe_load(values.config)
+
+# formate the config
+config = formateConfig(config, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix, "date": values.date})
+
 setup()
-#tournamentURL = createTournament(config, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix, "date": values.date})
-tournamentURL="mmm_ml_europe"
+
+tournamentURL = createTournament(config)
+
+
 selenium = prepare()
 
 addjustSettings(selenium, tournamentURL, config)
 
 stopSelenium(selenium)
+
 
 if values.delete:
     deleteTournament()

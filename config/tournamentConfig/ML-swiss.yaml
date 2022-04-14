@@ -74,7 +74,6 @@
 "tournament[check_in_duration]": 0 #in minutes
 
 
-
 # PREDICTIONS AND VOTING
 
 
@@ -109,7 +108,8 @@
 # Permisions
 "tournament[allow_participant_match_reporting]": True
 "tournament[private]": False
-"shared_administration": False
+"shared_administration": True
+tournament[admin_ids_csv]: "5339908"
 
 # Notifications
 "tournament[notify_users_when_matches_open]": True
