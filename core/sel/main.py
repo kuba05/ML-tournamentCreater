@@ -1,9 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.common.by import By
 
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+#from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
 from core.setup import isLoggedIn, getLogin
@@ -12,6 +11,8 @@ from core.setup import isLoggedIn, getLogin
 username = None
 password = None
 ROOT = "https://challonge.com"    
+
+
 
 def setup():
     """
@@ -29,13 +30,12 @@ def setup():
     username = credentials["username"]
     password = credentials["password"]
     
-    firefoxProfile = FirefoxProfile()
-                                  
-    binary = FirefoxBinary("/Users/kuba/AppData/Local/Mozilla Firefox/firefox.exe")
     
-    driver = webdriver.Firefox(executable_path = "core/sel/firefoxDriver.exe", firefox_profile = firefoxProfile, firefox_binary = binary)
+    driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe")
     
     return driver
+
+
 
 def login(driver):
     #loads the page
@@ -51,11 +51,13 @@ def login(driver):
     #sumbits the form
     loginForm.find_element(By.XPATH, '//input[@type="submit"]').click()
 
+
+
 def findTournament(driver, id):
     driver.get(ROOT + f"/{id}")
+
     
 def addjustSettings(driver, tournamentURL, settings):
-    print("loading")
     
     # goes to the settings page of tournament
     try:
@@ -66,10 +68,7 @@ def addjustSettings(driver, tournamentURL, settings):
         pass
         
     # return to default
-    driver.set_page_load_timeout(300)
-    
-    print("loaded")
-    
+    driver.set_page_load_timeout(300)    
     
     # finds the form
     form = driver.find_element(By.ID, "tournament_form")
@@ -89,7 +88,9 @@ def addjustSettings(driver, tournamentURL, settings):
                 
                     #the element is often unclickable, hence we have to use js
                     driver.execute_script("arguments[0].click()", element)
-                    print(f"{setting} changed to {settings[setting]}")
+                    
+                    with open("log", "a") as log:
+                        print(f"{setting} changed to {settings[setting]}", file=log)
             
             if isinstance(settings[setting], str) or isinstance(settings[setting], int):
                 if element.get_attribute("value") != settings[setting]:
@@ -97,7 +98,8 @@ def addjustSettings(driver, tournamentURL, settings):
                     
                     
         except Exception as e:
-            print(e)
+            with open("log", "a") as log:
+                print(e, file=log)
     
     # sumbit the form
     btn = driver.find_element(By.XPATH, "//input[@value='Save Changes']")

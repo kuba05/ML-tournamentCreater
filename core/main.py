@@ -20,8 +20,6 @@ def _setupChallonge():
     
     Should be called before any other actions with Challonge library are taken
     """    
-    print("setuping!")
-
     if not setup.isLoggedIn():
         raise ValueError("Username or API key are not filled in!")
         
@@ -42,7 +40,7 @@ def _safeRequest(request):
     try:
         return request()
     except requests.exceptions.RequestException as e:
-        with open("log", "w") as log:
+        with open("log", "a") as log:
             print(e, file=log)
         
         #401 == unauthorized    
@@ -72,12 +70,10 @@ def _createTournament(**params):
     """
     myParams = {"url": None}
     myParams.update(params)
-    print(myParams)
+    
     a = _safeRequest(lambda: challonge.tournaments.create(**myParams))
     
-    print("tournament created")
-    
-    with open("log", "w") as log:
+    with open("log", "a") as log:
         print(a, file=log)
         
     return a["url"]
@@ -114,7 +110,6 @@ def _preproccessConfig(config):
             continue
         parsedConfig[splited[1]] = config[key]
     
-    print(parsedConfig)
     return parsedConfig
         
         
