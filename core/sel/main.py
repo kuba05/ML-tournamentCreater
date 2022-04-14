@@ -30,12 +30,8 @@ def setup():
     password = credentials["password"]
     
     firefoxProfile = FirefoxProfile()
-    
-    ## speed up loading
-    firefoxProfile.set_preference("http.response.timeout", 5)
-    firefoxProfile.set_preference("dom.max_script_run_time", 5)
                                   
-    binary = FirefoxBinary('/Users/kuba/AppData/Local/Mozilla Firefox/firefox.exe')
+    binary = FirefoxBinary("/Users/kuba/AppData/Local/Mozilla Firefox/firefox.exe")
     
     driver = webdriver.Firefox(executable_path = "core/sel/firefoxDriver.exe", firefox_profile = firefoxProfile, firefox_binary = binary)
     
@@ -105,7 +101,7 @@ def addjustSettings(driver, tournamentURL, settings):
     
     # sumbit the form
     btn = driver.find_element(By.XPATH, "//input[@value='Save Changes']")
-    input()
+    input("Please check the settings and e.g. set time! Then continue by pressing enter in this window.")
     driver.execute_script("arguments[0].click()", btn)
 
 def prepare():    
@@ -114,7 +110,6 @@ def prepare():
     return driver
     
 def stopSelenium(driver):
-    input()
     driver.quit()
     
     

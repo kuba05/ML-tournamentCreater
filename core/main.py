@@ -123,7 +123,6 @@ def createTournament(config):
     """
     config is dictionary of options that will be passed to the API
     """
-
     _setupChallonge()
     parsedConfig = _preproccessConfig(config)
     try:
@@ -131,7 +130,7 @@ def createTournament(config):
     except ConnectionError as e:
         print()  
         print("\n".join(e.args))
-        return
+        return config["tournament[url]"]
     
     return tournamentURL
         

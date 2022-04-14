@@ -28,14 +28,18 @@ config = formateConfig(config, {"name": values.name, "number": values.number, "u
 setup()
 
 tournamentURL = createTournament(config)
+    
+# make sure we delete the tournament if requested
+try:    
+    selenium = prepare()
+    
+    addjustSettings(selenium, tournamentURL, config)
+    
+    stopSelenium(selenium)
 
-
-selenium = prepare()
-
-addjustSettings(selenium, tournamentURL, config)
-
-stopSelenium(selenium)
-
-
+except Exception as e:
+    print(e)
+    
+    
 if values.delete:
-    deleteTournament()
+    deleteTournament(tournamentURL)
