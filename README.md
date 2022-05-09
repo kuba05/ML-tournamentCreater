@@ -3,7 +3,7 @@
 This script is part of a project to automatize as much as possible in MMM tournaments.
 
 ## how to use
-Either use a tool in coresponding directory (/windows or /linux) or run the python scipt called parse.py from your commandline.
+Run the python scipt called parse.py from your commandline.
 
 The standard usage of the script is:
 
@@ -20,6 +20,3 @@ Don't forget to install dependencies and add your real credentials to config/cre
 ## structure
 - /core contains all the python code
 - /config contains all config files, including credentials.yaml
-- /windows includes tools to use this app on windows
-- /linux includes tools to use this app on linux
-
