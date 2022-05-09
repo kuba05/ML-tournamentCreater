@@ -3,7 +3,7 @@ import yaml
 
 from core.main import createTournament, deleteTournament
 from core.setup import setup, formateConfig
-from core.sel.main import prepare, addjustSettings, stopSelenium
+from core.sel import prepareSelenium, addjustSettingsWithSelenium, stopSelenium
 
 description = """
 This is a MMM tournament creation app. It's aim is to make creating MMM tournaments on Challonge easier and faster.
