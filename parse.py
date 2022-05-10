@@ -31,14 +31,14 @@ tournamentURL = createTournament(config)
     
 # make sure we delete the tournament if requested
 try:    
-    selenium = prepare()
+    selenium = prepareSelenium()
     
     addjustSettings(selenium, tournamentURL, config)
     
     stopSelenium(selenium)
 
 except Exception as e:
-    print(e)
+    print("Error in selenium:",e)
     
     
 if values.delete:

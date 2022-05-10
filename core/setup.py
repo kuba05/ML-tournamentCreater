@@ -57,7 +57,7 @@ def login():
     APIKey = input("API key: ").strip()
     
     with open("config/credentials.yaml", "w") as credentials:
-        credentials.write(yaml.dump({"username": username, "APIKey": APIKey}))
+        credentials.write(yaml.dump({"username": username, "password": password, "APIKey": APIKey}))
 
 
         
