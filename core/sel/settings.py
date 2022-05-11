@@ -1,3 +1,8 @@
+from selenium.webdriver.common.by import By
+
+ROOT = "https://challonge.com"    
+
+
 def findTournamentWithSelenium(driver, tournamentURL):
     driver.get(ROOT + f"/{tournamentURL}")
 
@@ -7,9 +12,11 @@ def addjustSettingsWithSelenium(driver, tournamentURL, settings):
     # goes to the settings page of tournament
     try:
         # make the loading faster
-        driver.set_page_load_timeout(5)
+        driver.set_page_load_timeout(10)
         driver.get(ROOT + f"/{tournamentURL}/settings")
-    except Exception:
+    except Exception as e:
+        print(e)
+        print("failed to load")
         pass
         
     # return to default

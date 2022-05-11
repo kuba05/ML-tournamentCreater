@@ -33,7 +33,7 @@ tournamentURL = createTournament(config)
 try:    
     selenium = prepareSelenium()
     
-    addjustSettings(selenium, tournamentURL, config)
+    addjustSettingsWithSelenium(selenium, tournamentURL, config)
     
     stopSelenium(selenium)
 
