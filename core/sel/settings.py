@@ -1,5 +1,5 @@
-def findTournamentWithSelenium(driver, id):
-    driver.get(ROOT + f"/{id}")
+def findTournamentWithSelenium(driver, tournamentURL):
+    driver.get(ROOT + f"/{tournamentURL}")
 
     
 def addjustSettingsWithSelenium(driver, tournamentURL, settings):
