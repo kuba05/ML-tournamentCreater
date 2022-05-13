@@ -2,7 +2,7 @@
 
 
 #"tournament[organization_id]": None
-"tournament[name]": "MMM Vintage Cube Championship #{number}"
+"tournament[name]": "MMM Vintage Cube Leaders, event #{number}"
 "tournament[url]": mmm_VCC_1_{number}{url_suffix}
 "tournament[description]": >
     <p style="text-align: center;">
@@ -44,11 +44,11 @@
 "tournament[tournament_type]": "swiss" #in case of group stages, this is fromat of finals
 
 # swiss
-"tournament[pts_for_match_win]": 3
-"tournament[pts_for_match_tie]": 1
+"tournament[pts_for_match_win]": 0
+"tournament[pts_for_match_tie]": 0
 "tournament[pts_for_game_win]": 0
 "tournament[pts_for_game_tie]": 0
-"tournament[pts_for_bye]": 3
+"tournament[pts_for_bye]": 0
 
 # round robin
 "rr_iterations": 1

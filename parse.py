@@ -3,7 +3,7 @@ import yaml
 
 from core.main import createTournament, deleteTournament
 from core.setup import setup, formateConfig
-from core.sel import prepareSelenium, addjustSettingsWithSelenium, stopSelenium
+from core.sel import prepareSelenium, CreateTournamentWithSelenium, stopSelenium
 
 description = """
 This is a MMM tournament creation app. It's aim is to make creating MMM tournaments on Challonge easier and faster.
@@ -25,20 +25,21 @@ config = yaml.safe_load(values.config)
 # formate the config
 config = formateConfig(config, {"name": values.name, "number": values.number, "url_suffix": values.url_suffix, "date": values.date})
 
-setup()
+#setup()
 
-tournamentURL = createTournament(config)
+#tournamentURL = createTournament(config)
     
 # make sure we delete the tournament if requested
 try:    
     selenium = prepareSelenium()
     
-    addjustSettingsWithSelenium(selenium, tournamentURL, config)
+    CreateTournamentWithSelenium(selenium, config)
     
     stopSelenium(selenium)
 
 except Exception as e:
     print("Error in selenium:",e)
+    raise e
     
     
 if values.delete:

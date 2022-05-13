@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -51,6 +53,7 @@ def loginSelenium(driver):
     loginForm.find_element(By.ID, "user_session_username_or_email").send_keys(username)
     loginForm.find_element(By.ID, "user_session_password").send_keys(password)
     
+    time.sleep(0.1)
     #sumbits the form
     loginForm.find_element(By.XPATH, '//input[@type="submit"]').click()
     
@@ -64,7 +67,7 @@ def prepareSelenium():
 def stopSelenium(driver):
     driver.quit()
     
-    
+               
 if __name__ == "__main__":
     import settings
     import questions

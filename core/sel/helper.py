@@ -1,31 +1,10 @@
+import sys
+
 from selenium.webdriver.common.by import By
 
-from config.config import ROOT 
 
-
-def findTournamentWithSelenium(driver, tournamentURL):
-    driver.get(ROOT + f"/{tournamentURL}")
-
-    
-def addjustSettingsWithSelenium(driver, tournamentURL, settings):
-    
-    # goes to the settings page of tournament
-    try:
-        # make the loading faster
-        driver.set_page_load_timeout(10)
-        driver.get(ROOT + f"/{tournamentURL}/settings")
-    except Exception as e:
-        print(e)
-        print("failed to load")
-        pass
-        
-    # return to default
-    driver.set_page_load_timeout(300)    
-    
-    # finds the form
-    form = driver.find_element(By.ID, "tournament_form")
-    
-    # set the settings
+def applySettingsSelenium(driver, form, settings):
+    print(settings, file=sys.stderr)
     for setting in settings:
         
         try:
@@ -45,6 +24,7 @@ def addjustSettingsWithSelenium(driver, tournamentURL, settings):
                         print(f"{setting} changed to {settings[setting]}", file=log)
             
             if isinstance(settings[setting], str) or isinstance(settings[setting], int):
+                print("found string:", setting, file=sys.stderr)
                 if element.get_attribute("value") != settings[setting]:
                     driver.execute_script("arguments[0].value = arguments[1]", element, settings[setting])
                     
@@ -52,8 +32,5 @@ def addjustSettingsWithSelenium(driver, tournamentURL, settings):
         except Exception as e:
             with open("log", "a") as log:
                 print(e, file=log)
-    
-    # sumbit the form
-    btn = driver.find_element(By.XPATH, "//input[@value='Save Changes']")
-    input("Please check the settings and e.g. set time! Then continue by pressing enter in this window.")
-    driver.execute_script("arguments[0].click()", btn)
+                
+     
