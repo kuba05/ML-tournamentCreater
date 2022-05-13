@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 
 from core.setup import isLoggedIn, getLogin
 
+from config.config import ROOT
 
 username = None
 password = None
-ROOT = "https://challonge.com"    
 
 
 
@@ -30,9 +30,12 @@ def setupSelenium():
     username = credentials["username"]
     password = credentials["password"]
     
+    options = webdriver.ChromeOptions()
     
-    driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe")
-    
+    try:
+        driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe", options = options)
+    except Exception as e:
+        raise e
     return driver
 
 

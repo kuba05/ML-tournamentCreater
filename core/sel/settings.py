@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-ROOT = "https://challonge.com"    
+from config.config import ROOT 
 
 
 def findTournamentWithSelenium(driver, tournamentURL):

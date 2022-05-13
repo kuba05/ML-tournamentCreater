@@ -6,7 +6,6 @@ import requests.exceptions
 
 from . import setup
 
-URL = "https://api.challonge.com/v1/tournaments"
 
 
 
