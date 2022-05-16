@@ -4,6 +4,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
+from core.helper import log
 
 def fillInFormSelenium(driver, form, values):
     """
@@ -26,8 +27,7 @@ def fillInFormSelenium(driver, form, values):
                     #the element is often unclickable, hence we have to use js
                     driver.execute_script("arguments[0].click()", element)
                     
-                    with open("log", "a") as log:
-                        print(f"{value} changed to {values[value]}", file=log)
+                    log(f"{value} changed to {values[value]}")
             
             if isinstance(values[value], str) or isinstance(values[value], int):
                 if element.get_attribute("value") != values[value]:
@@ -35,8 +35,7 @@ def fillInFormSelenium(driver, form, values):
                     
                     
         except Exception as e:
-            with open("log", "a") as log:
-                print(e, file=log)
+            log("Exception in filling form: ", e)
                 
 def submitFormSelenium(driver, form):
     time.sleep(0.1)

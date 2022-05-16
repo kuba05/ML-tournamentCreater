@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 
 from .helper import fillInFormSelenium, loadPageSelenium, submitFormSelenium
 
-from core.setup import isLoggedIn, getLogin
+from core.helper import isLoggedIn, getLogin
 
 from config.config import ROOT
 
@@ -18,7 +18,7 @@ password = None
 
 
 
-def setupSelenium():
+def setupSelenium(headless = False):
     """
     creates selenium driver and returns it
     """
@@ -39,10 +39,12 @@ def setupSelenium():
     options.add_argument("--disable-extensions")
     options.add_argument("--disable-logging")
     options.add_argument("--log-level=3")
-    #options.add_argument("--headless")
+    
+    if headless:
+        options.add_argument("--headless")
     
     try:
-        driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe", service_log_path="selenium.log", options=options)
+        driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe", service_log_path="log/selenium.log", options=options)
     except Exception as e:
         raise e
     return driver
@@ -67,8 +69,8 @@ def loginSelenium(driver):
     
     
 
-def prepareSelenium():    
-    driver = setupSelenium()
+def prepareSelenium(headless = False):    
+    driver = setupSelenium(headless)
     loginSelenium(driver)
     return driver
     

@@ -5,7 +5,7 @@ def isLoggedIn():
     checks if user have filled credentials
     """
     login = getLogin()
-    return login["username"] != None and login["APIKey"] != None and ["password"] != None
+    return login["username"] != None and ["password"] != None
     
 
 
@@ -17,14 +17,14 @@ def getLogin():
     try:
         with open("config/credentials.yaml") as credentials:
             loaded = yaml.safe_load(credentials)
-            return {"username": loaded["username"], "APIKey": loaded["APIKey"], "password": loaded["password"]}
+            return {"username": loaded["username"], "password": loaded["password"]}
         
     except Exception:
         return {"username": None, "APIKey": None, "password": None}
 
 
 
-def setup():
+def setupAuthentication():
     """
     checks user is loged in as he wants to be
     """
@@ -48,31 +48,11 @@ def login():
     """
     makes user fill in credentials
     """
-    print("Please log in!")
+    print("Please log in!", flush=True)
     
     username = input("Username: ").strip()
     
     password = input("Password: ").strip()
     
-    APIKey = input("API key: ").strip()
-    
     with open("config/credentials.yaml", "w") as credentials:
-        credentials.write(yaml.dump({"username": username, "password": password, "APIKey": APIKey}))
-
-
-        
-def formateConfig(config, parameters):
-    """
-    given parameters, it will call .format() on all string values in config
-    """
-    print(parameters)
-    formatedConfig = {}
-    
-    for key in config:
-        if type(config[key]) != type(""):    
-            formatedConfig[key] = config[key]
-            continue
-        
-        formatedConfig[key] = config[key].format(**parameters)
-        
-    return formatedConfig
+        credentials.write(yaml.dump({"username": username, "password": password}))

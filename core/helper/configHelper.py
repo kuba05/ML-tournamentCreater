@@ -16,7 +16,7 @@ def formateToType(text, type, paramName):
         try:
             return types[type](text)
         except ValueError:
-            print(f"{paramName} was not inputed correctly, defaulting to None.", file=sys.stderr)
+            print(f"{paramName} was not inputed correctly, defaulting to None.", file=sys.stderr, flush=True)
             return None
             
     raise ValueError("{paramName} has an invalid type \"{type}\"!".format())
@@ -40,4 +40,20 @@ def loadFromUser(params):
         output[param] = formateToType(input(params[param][0]), params[param][1], param)
     
     return output
+    
+        
+def formateConfig(config, parameters):
+    """
+    given parameters, it will call .format() on all string values in config
+    """
+    formatedConfig = {}
+    
+    for key in config:
+        if type(config[key]) != type(""):    
+            formatedConfig[key] = config[key]
+            continue
+        
+        formatedConfig[key] = config[key].format(**parameters)
+        
+    return formatedConfig
         
