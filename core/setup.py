@@ -65,13 +65,14 @@ def formateConfig(config, parameters):
     """
     given parameters, it will call .format() on all string values in config
     """
+    print(parameters)
     formatedConfig = {}
     
     for key in config:
         if type(config[key]) != type(""):    
             formatedConfig[key] = config[key]
             continue
-            
+        
         formatedConfig[key] = config[key].format(**parameters)
         
     return formatedConfig

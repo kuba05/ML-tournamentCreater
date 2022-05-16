@@ -7,6 +7,8 @@ from selenium.webdriver.common.by import By
 #from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
+from .helper import fillInFormSelenium, loadPageSelenium, submitFormSelenium
+
 from core.setup import isLoggedIn, getLogin
 
 from config.config import ROOT
@@ -34,8 +36,13 @@ def setupSelenium():
     
     options = webdriver.ChromeOptions()
     
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-logging")
+    options.add_argument("--log-level=3")
+    #options.add_argument("--headless")
+    
     try:
-        driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe", options = options)
+        driver = webdriver.Chrome(executable_path = "core/sel/chromedriver.exe", service_log_path="selenium.log", options=options)
     except Exception as e:
         raise e
     return driver
@@ -44,18 +51,19 @@ def setupSelenium():
 
 def loginSelenium(driver):
     #loads the page
-    driver.get(ROOT + "/user_session/new?continue=%2F")
-    
+    loadPageSelenium(driver, ROOT + "/user_session/new?continue=%2F")
     #finds the login form
-    loginForm = driver.find_element(By.ID, "new_user_session")
+    loginForm = driver.find_element(By.XPATH, "//form[@id='new_user_session']")
     
     #fills the form in
-    loginForm.find_element(By.ID, "user_session_username_or_email").send_keys(username)
-    loginForm.find_element(By.ID, "user_session_password").send_keys(password)
+    fillInFormSelenium(driver, loginForm,
+        {
+            "user_session[username_or_email]": username,
+            "user_session[password]": password
+        }
+    )
     
-    time.sleep(0.1)
-    #sumbits the form
-    loginForm.find_element(By.XPATH, '//input[@type="submit"]').click()
+    submitFormSelenium(driver, loginForm)
     
     
 
@@ -72,7 +80,5 @@ if __name__ == "__main__":
     import settings
     import questions
     driver = prepareSelenium()
-    id = input("please enter tournament id:")
-    findTournament(driver, id)
     input()
     driver.quit()

@@ -3,11 +3,11 @@
 This script is part of a project to automatize as much as possible in MMM tournaments.
 
 ## how to use
-Run the python scipt called parse.py from your commandline.
+Run the python scipt called main.py from your commandline.
 
 The standard usage of the script is:
 
-    python3 parse.py config/tournamentConfigs/MLconfig -N 18
+    python3 main.py config/tournamentConfigs/MLconfig
 
 If in doubt, use -h or --help switch to see documentation for the script :)
 
