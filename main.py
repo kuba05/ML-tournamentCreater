@@ -31,7 +31,7 @@ def main(values):
 
     selenium = prepareSelenium(values.headless)
 
-    tournamentURL = createTournamentSelenium(selenium, config, config["event"])
+    tournamentURL = createTournamentSelenium(selenium, config["tournament"]["creation"], config["tournament"]["event"])
 
     print("Tournament created!", flush=True)
 

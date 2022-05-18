@@ -49,22 +49,32 @@ def formateConfig(config, parameters):
     formatedConfig = {}
     
     for key in config:
+        # if object is directory, we should format all its elements as well
+        if type(config[key]) == type({1:1}):
+            formatedConfig[key] = formateConfig(config[key], parameters)
+            continue
+        
+        # it only makes sense to format strings
         if type(config[key]) != type(""):    
             formatedConfig[key] = config[key]
             continue
         
         formatedConfig[key] = config[key].format(**parameters)
-        
     return formatedConfig
         
 
 def loadParamsFromConfigAndFormateConfig(config):
     if config["parameters"] == None:
         return config
+        
     params = config["parameters"]
     params = dict(**loadFromEnviroment(params["env"]), **loadFromUser(params["user"]))
   
     # formate the config
-    formatedConfig = formateConfig(config["tournament"], params)
+    formatedConfig = formateConfig(
+        # pass the whole config except for "parameters"
+        {i: config[i] for i in config if i != "parameters"}
+        , params
+    )
     
     return formatedConfig

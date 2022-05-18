@@ -17,127 +17,127 @@ parameters:
 tournament:
     event: "{eventURL}"
     
-    
-    # BASIC INFO
-    
-    
-    #"tournament[organization_id]": None
-    "tournament[name]": "MMM VCL, event #{event}, pod {pod}"
-    "tournament[url]": mmm_VCL_{serie}_{event}_{pod}
-    "tournament[description]": >
-        <p style="text-align: center;">
-            <strong>Vintage Cube Leaders, S{serie}E{event}, pod #{pod}</strong>
-        </p>
-        <p style="text-align: center;">
-            a
-            For all tournament details please follow our community on&nbsp;
-            <a href="https://discord.gg/r8njzKu" title="&quot;Magic Mage Masters&quot; Discord server" target="_blank" rel="nofollow noopener noref00errer">
-                <strong>Discord</strong>
-            </a>
-            &nbsp;as well as&nbsp;
-            
-            <a href="https://challonge.com/communities/magic-mage-masters" title="&quot;Magic Mage Masters&quot; Challonge community" target="_blank" rel="nofollow noopener noreferrer">
-                <strong>Challonge</strong>
-            </a>.
-        </p><br>
-        <p style="text-align: center;">
-            <strong>Tournament costs</strong>
-        </p>
-        <p style="text-align: center;">100% free, no entry fee!</p>
-        <p>
-            <strong>
-            </strong>
-            <br>
-            <strong>
-            </strong>
-        </p>
-        <p style="box-sizing: border-box; margin: 0px; text-align: center;">
-            <strong>Tournament prize pool to be announced!</strong>
-        </p>
-    
-    
-    
-    #GAME INFO
-    
-    
-    "tournament[game_name]": "Magic The Gathering"
-    "tournament[group_stages_enabled]": False
-    "tournament[tournament_type]": "swiss" #in case of group stages, this is fromat of finals
-    
-    # swiss
-    "tournament[pts_for_match_win]": 3
-    "tournament[pts_for_match_tie]": 1
-    "tournament[pts_for_game_win]": 0
-    "tournament[pts_for_game_tie]": 0
-    "tournament[pts_for_bye]": 3
-    
-    # round robin
-    "rr_iterations": 1
-    
-    # single elimination
-    "tournament[hold_third_place_match]": False
-    
-    # stage
-    "tournament[group_stages_attributes][0][stage_type]": "round robin"
-    "tournament[group_stages_attributes][0][group_size]": 4
-    "tournament[group_stages_attributes][0][participant_count_to_advance_per_group]": 2
-     
-    
-    
-    # REGISTRATION
-    
-    
-    "tournament[teams]": False
-    "tournament[open_signup]": False
-    "tournament[public_sign_up]": False
-    "tournament[signup_cap]": 8
-    "enable_check_in": False
-    "tournament[check_in_duration]": 0 #in minutes
-    "mark_as_tentative": {False if date != None else True}
-    "tournament[start_at]": "{date}"
-    
-    
-    # PREDICTIONS AND VOTING
-    
-    
-    "tournament[voting_enabled]": False
-    "accept_predictions": False # == enable bracket predicitons
-    
-    
-    
-    # EXPERIMENTAL FEATURES
-    
-    
-    "tournament[activate_fireball]": True
-    "tournament[non_elimination_tournament_data][email_verification_required]": True # == require participants to have verified emails
-    "tournament[activate_region_locking]": False
-    "tournament[allowed_regions]": []
-    "tournament[activate_prediction_custom_fields]": False
-    
-    
-    
-    # ADVANCED OPTIONS
-    
-    
-    # Bracket
-    "tournament[hide_seeds]": False
-    "tournament[quick_advance]": False
-    "tournament[accept_attachments]": False
-    "tournament[show_rounds]": False
-    
-    # Tie Breaks
-    "tournament[tie_breaks]": ['match wins vs tied', 'median buchholz', 'points difference']
-    
-    # Permisions
-    "tournament[allow_participant_match_reporting]": True
-    "tournament[private]": False
-    "shared_administration": True
-    tournament[admin_ids_csv]: "5339908"
-    
-    # Notifications
-    "tournament[notify_users_when_matches_open]": True
-    "tournament[notify_users_when_the_tournament_ends]": True
-    
-    # Misc
-    "tournament[hide_forum]": True #== show announcements tab
-    "tournament[optional_display_data]": True #== show standings tab
+    creation:
+        # BASIC INFO
+        
+        
+        #"tournament[organization_id]": None
+        "tournament[name]": "MMM VCL, event #{event}, pod {pod}"
+        "tournament[url]": mmm_VCL_{serie}_{event}_{pod}
+        "tournament[description]": >
+            <p style="text-align: center;">
+                <strong>Vintage Cube Leaders, S{serie}E{event}, pod #{pod}</strong>
+            </p>
+            <p style="text-align: center;">
+                a
+                For all tournament details please follow our community on&nbsp;
+                <a href="https://discord.gg/r8njzKu" title="&quot;Magic Mage Masters&quot; Discord server" target="_blank" rel="nofollow noopener noref00errer">
+                    <strong>Discord</strong>
+                </a>
+                &nbsp;as well as&nbsp;
+                
+                <a href="https://challonge.com/communities/magic-mage-masters" title="&quot;Magic Mage Masters&quot; Challonge community" target="_blank" rel="nofollow noopener noreferrer">
+                    <strong>Challonge</strong>
+                </a>.
+            </p><br>
+            <p style="text-align: center;">
+                <strong>Tournament costs</strong>
+            </p>
+            <p style="text-align: center;">100% free, no entry fee!</p>
+            <p>
+                <strong>
+                </strong>
+                <br>
+                <strong>
+                </strong>
+            </p>
+            <p style="box-sizing: border-box; margin: 0px; text-align: center;">
+                <strong>Tournament prize pool to be announced!</strong>
+            </p>
+        
+        
+        
+        #GAME INFO
+        
+        
+        "tournament[game_name]": "Magic The Gathering"
+        "tournament[group_stages_enabled]": False
+        "tournament[tournament_type]": "swiss" #in case of group stages, this is fromat of finals
+        
+        # swiss
+        "tournament[pts_for_match_win]": 3
+        "tournament[pts_for_match_tie]": 1
+        "tournament[pts_for_game_win]": 0
+        "tournament[pts_for_game_tie]": 0
+        "tournament[pts_for_bye]": 3
+        
+        # round robin
+        "rr_iterations": 1
+        
+        # single elimination
+        "tournament[hold_third_place_match]": False
+        
+        # stage
+        "tournament[group_stages_attributes][0][stage_type]": "round robin"
+        "tournament[group_stages_attributes][0][group_size]": 4
+        "tournament[group_stages_attributes][0][participant_count_to_advance_per_group]": 2
+         
+        
+        
+        # REGISTRATION
+        
+        
+        "tournament[teams]": False
+        "tournament[open_signup]": False
+        "tournament[public_sign_up]": False
+        "tournament[signup_cap]": 8
+        "enable_check_in": False
+        "tournament[check_in_duration]": 0 #in minutes
+        "mark_as_tentative": {False if date != None else True}
+        "tournament[start_at]": "{date}"
+        
+        
+        # PREDICTIONS AND VOTING
+        
+        
+        "tournament[voting_enabled]": False
+        "accept_predictions": False # == enable bracket predicitons
+        
+        
+        
+        # EXPERIMENTAL FEATURES
+        
+        
+        "tournament[activate_fireball]": True
+        "tournament[non_elimination_tournament_data][email_verification_required]": True # == require participants to have verified emails
+        "tournament[activate_region_locking]": False
+        "tournament[allowed_regions]": []
+        "tournament[activate_prediction_custom_fields]": False
+        
+        
+        
+        # ADVANCED OPTIONS
+        
+        
+        # Bracket
+        "tournament[hide_seeds]": False
+        "tournament[quick_advance]": False
+        "tournament[accept_attachments]": False
+        "tournament[show_rounds]": False
+        
+        # Tie Breaks
+        "tournament[tie_breaks]": ['match wins vs tied', 'median buchholz', 'points difference']
+        
+        # Permisions
+        "tournament[allow_participant_match_reporting]": True
+        "tournament[private]": False
+        "shared_administration": True
+        tournament[admin_ids_csv]: "5339908"
+        
+        # Notifications
+        "tournament[notify_users_when_matches_open]": True
+        "tournament[notify_users_when_the_tournament_ends]": True
+        
+        # Misc
+        "tournament[hide_forum]": True #== show announcements tab
+        "tournament[optional_display_data]": True #== show standings tab
