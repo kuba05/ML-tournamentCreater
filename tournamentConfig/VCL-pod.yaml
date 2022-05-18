@@ -7,23 +7,29 @@ parameters:
     
     #user will be asked to input these 
     user:
-        number: ["Enter the number of the tournament: ", "str"]
+        serie: ["Enter the number of the serie: ", "str"]
+        event: ["Enter the number of the event: ", "str"]
+        pod: ["Enter the number of the pod: ", "str"]
         date: ["Enter the date: ", "date"]
-        event: ["Enter event url (leave blank for no event): ", "str"]
+        eventURL: ["Enter event url (leave blank for no event): ", "str"]
+        
+
 tournament:
-    event: "{event}"
+    event: "{eventURL}"
+    
     
     # BASIC INFO
     
     
     #"tournament[organization_id]": None
-    "tournament[name]": "MMM Vintage Cube Leaders, event #{number}"
-    "tournament[url]": mmm_VCC_1_{number}
+    "tournament[name]": "MMM VCL, event #{event}, pod {pod}"
+    "tournament[url]": mmm_VCL_{serie}_{event}_{pod}
     "tournament[description]": >
         <p style="text-align: center;">
-            <strong>Modern Leaders #{number}</strong>
+            <strong>Vintage Cube Leaders, S{serie}E{event}, pod #{pod}</strong>
         </p>
         <p style="text-align: center;">
+            a
             For all tournament details please follow our community on&nbsp;
             <a href="https://discord.gg/r8njzKu" title="&quot;Magic Mage Masters&quot; Discord server" target="_blank" rel="nofollow noopener noref00errer">
                 <strong>Discord</strong>
@@ -59,11 +65,11 @@ tournament:
     "tournament[tournament_type]": "swiss" #in case of group stages, this is fromat of finals
     
     # swiss
-    "tournament[pts_for_match_win]": 0
-    "tournament[pts_for_match_tie]": 0
+    "tournament[pts_for_match_win]": 3
+    "tournament[pts_for_match_tie]": 1
     "tournament[pts_for_game_win]": 0
     "tournament[pts_for_game_tie]": 0
-    "tournament[pts_for_bye]": 0
+    "tournament[pts_for_bye]": 3
     
     # round robin
     "rr_iterations": 1
@@ -82,9 +88,9 @@ tournament:
     
     
     "tournament[teams]": False
-    "tournament[open_signup]": True
-    "tournament[public_sign_up]": True
-    "tournament[signup_cap]": 256
+    "tournament[open_signup]": False
+    "tournament[public_sign_up]": False
+    "tournament[signup_cap]": 8
     "enable_check_in": False
     "tournament[check_in_duration]": 0 #in minutes
     "mark_as_tentative": {False if date != None else True}

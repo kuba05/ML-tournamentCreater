@@ -5,10 +5,15 @@ from .helper import fillInFormSelenium, loadPageSelenium, submitFormSelenium
 from config.config import ROOT 
 
     
-def createTournamentSelenium(driver, settings):
+def createTournamentSelenium(driver, settings, eventURL=None):
     
+    if eventURL == None:
+        eventURL = ""
+    else:
+        eventURL = "/events/" + eventURL
+        
     # goes to the settings page of tournament
-    loadPageSelenium(driver, ROOT + "/tournaments/new")
+    loadPageSelenium(driver, ROOT + eventURL + "/tournaments/new")
     
     # finds the form
     form = driver.find_element(By.ID, "tournament_form")

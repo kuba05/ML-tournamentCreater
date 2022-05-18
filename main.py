@@ -34,13 +34,19 @@ params = dict(**loadFromEnviroment(params["env"]), **loadFromUser(params["user"]
 # formate the config
 formatedConfig = formateConfig(config["tournament"], params)
 
+event = formatedConfig["event"]
 
-# make sure we delete the tournament if requested
+
 print("Tournament creation in progress...", flush=True)
+
+
+"""
+    start the main part
+""" 
 
 selenium = prepareSelenium(values.headless)
 
-tournamentURL = createTournamentSelenium(selenium, formatedConfig)
+tournamentURL = createTournamentSelenium(selenium, formatedConfig, event)
 
 print("Tournament created!", flush=True)
 
@@ -56,5 +62,11 @@ if values.delete:
             break
 
 stopSelenium(selenium)
+
+
+
+"""
+    start the cleanup
+"""
 
 endLogging()
