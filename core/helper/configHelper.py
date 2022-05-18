@@ -57,3 +57,14 @@ def formateConfig(config, parameters):
         
     return formatedConfig
         
+
+def loadParamsFromConfigAndFormateConfig(config):
+    if config["parameters"] == None:
+        return config
+    params = config["parameters"]
+    params = dict(**loadFromEnviroment(params["env"]), **loadFromUser(params["user"]))
+  
+    # formate the config
+    formatedConfig = formateConfig(config["tournament"], params)
+    
+    return formatedConfig

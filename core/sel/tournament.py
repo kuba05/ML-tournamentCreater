@@ -7,9 +7,7 @@ from config.config import ROOT
     
 def createTournamentSelenium(driver, settings, eventURL=None):
     
-    if eventURL == None:
-        eventURL = ""
-    else:
+    if eventURL != "":
         eventURL = "/events/" + eventURL
         
     # goes to the settings page of tournament

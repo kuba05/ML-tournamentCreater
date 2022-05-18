@@ -3,7 +3,8 @@ import yaml
 
 
 from core.sel import prepareSelenium, createTournamentSelenium, stopSelenium, deleteTournamentSelenium
-from core.helper import loadFromEnviroment, loadFromUser, formateConfig, setupAuthentication, setupLogging, endLogging
+from core.helper import setupAuthentication, setupLogging, endLogging, loadParamsFromConfigAndFormateConfig, confirm
+
 
 setupLogging("log/main.log")
 
@@ -20,53 +21,28 @@ parser.add_argument("--delete", "-d", action='store_true', help="give the user a
 
 parser.add_argument("--headless", "-H", action='store_true', help="run selenium headless")
 
-values = parser.parse_args()
 
-config = yaml.safe_load(values.config)
+def main(values):
+    setupAuthentication()
+    
+    config = loadParamsFromConfigAndFormateConfig(yaml.safe_load(values.config))
 
-setupAuthentication()
+    print("Tournament creation in progress...", flush=True)
 
+    selenium = prepareSelenium(values.headless)
 
-#load params
-params = config["parameters"]
-params = dict(**loadFromEnviroment(params["env"]), **loadFromUser(params["user"]))
+    tournamentURL = createTournamentSelenium(selenium, config, config["event"])
 
-# formate the config
-formatedConfig = formateConfig(config["tournament"], params)
+    print("Tournament created!", flush=True)
 
-event = formatedConfig["event"]
-
-
-print("Tournament creation in progress...", flush=True)
-
-
-"""
-    start the main part
-""" 
-
-selenium = prepareSelenium(values.headless)
-
-tournamentURL = createTournamentSelenium(selenium, formatedConfig, event)
-
-print("Tournament created!", flush=True)
-
-if values.delete:
-    while True:
-        answer = input("Do you want to delete the tournament?[Y/N] ")
-        if len(answer) == 0:
-            continue
-        if answer[0].lower() == "y":
+    if values.delete:
+        if confirm("Do you want to delete the tournament?[Y/N] "):
             deleteTournamentSelenium(selenium, tournamentURL)
-            break
-        if answer[0].lower() == "n":
-            break
-
-stopSelenium(selenium)
+            print("Tournament deleted!", flush=True)
+            
+    stopSelenium(selenium)
 
 
-
-"""
-    start the cleanup
-"""
+main(parser.parse_args())
 
 endLogging()

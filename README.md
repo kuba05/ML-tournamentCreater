@@ -7,7 +7,10 @@ Run the python scipt called main.py from your commandline.
 
 The standard usage of the script is:
 
-    python3 main.py -H tournamentConfigs/MLconfig
+    python3 main.py -d tournamentConfigs/MLconfig
+
+
+**It is advised to use -d switch and not use -H switch, as selenium doesn't report any errors that occure during tournament creation!**
 
 If in doubt, use -h or --help switch to see documentation for the script :)
 
