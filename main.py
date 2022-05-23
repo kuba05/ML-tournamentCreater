@@ -2,7 +2,7 @@ import argparse
 import yaml
 
 
-from core.sel import prepareSelenium, createTournamentSelenium, stopSelenium, deleteTournamentSelenium
+from core.sel import prepareSelenium, createTournamentSelenium, stopSelenium, deleteTournamentSelenium, readTournamentSelenium
 from core.helper import setupAuthentication, setupLogging, endLogging, loadParamsFromConfigAndFormateConfig, confirm
 
 
@@ -35,13 +35,19 @@ def main(values):
 
     print("Tournament created!", flush=True)
 
+    with open("output.yaml", "w") as file:
+        
+        x = readTournamentSelenium(selenium, "mmm_VCC_1_", config["tournament"]["creation"])
+        yaml.dump(x, file)
+    with open("output2.yaml", "w") as file:
+        yaml.dump(config["tournament"]["creation"], file)
+
     if values.delete:
         if confirm("Do you want to delete the tournament?[Y/N] "):
             deleteTournamentSelenium(selenium, tournamentURL)
             print("Tournament deleted!", flush=True)
-            
     stopSelenium(selenium)
-
+    
 
 main(parser.parse_args())
 

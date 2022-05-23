@@ -126,7 +126,7 @@ tournament:
         "tournament[show_rounds]": False
         
         # Tie Breaks
-        "tournament[tie_breaks]": ['match wins vs tied', 'median buchholz', 'points difference']
+        "tournament[tie_breaks]": ['median buchholz', 'points difference', 'match wins vs tied']
         
         # Permisions
         "tournament[allow_participant_match_reporting]": True

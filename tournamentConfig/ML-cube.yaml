@@ -18,10 +18,10 @@ tournament:
         # BASIC INFO
         
         
-        #"tournament[organization_id]": None
-        "tournament[name]": "MMM Vintage Cube Leaders, event #{number}"
-        "tournament[url]": mmm_VCC_1_{number}
-        "tournament[description]": >
+        #"tournament_organization_id": None
+        "tournament_name": "MMM Vintage Cube Leaders, event #{number}"
+        "tournament_url": mmm_VCC_1_{number}
+        "tournament_description": >
             <p style="text-align: center;">
                 <strong>Modern Leaders #{number}</strong>
             </p>
@@ -56,47 +56,47 @@ tournament:
         #GAME INFO
         
         
-        "tournament[game_name]": "Magic The Gathering"
-        "tournament[group_stages_enabled]": False
-        "tournament[tournament_type]": "swiss" #in case of group stages, this is fromat of finals
+        "tournament_game_name": "Magic The Gathering"
+        "tournament_group_stages_enabled_true": False
+        "tournament_tournament_type": "swiss" #in case of group stages, this is fromat of finals
         
         # swiss
-        "tournament[pts_for_match_win]": 0
-        "tournament[pts_for_match_tie]": 0
-        "tournament[pts_for_game_win]": 0
-        "tournament[pts_for_game_tie]": 0
-        "tournament[pts_for_bye]": 0
+        "tournament_pts_for_match_win": 0
+        "tournament_pts_for_match_tie": 0
+        "tournament_pts_for_game_win": 0
+        "tournament_pts_for_game_tie": 0
+        "tournament_pts_for_bye": 0
         
         # round robin
         "rr_iterations": 1
         
         # single elimination
-        "tournament[hold_third_place_match]": False
+        "tournament_hold_third_place_match": False
         
         # stage
-        "tournament[group_stages_attributes][0][stage_type]": "round robin"
-        "tournament[group_stages_attributes][0][group_size]": 4
-        "tournament[group_stages_attributes][0][participant_count_to_advance_per_group]": 2
+        "tournament_group_stages_attributes_0_stage_type": "round robin"
+        "tournament_group_stages_attributes_0_group_size": 4
+        "tournament_group_stages_attributes_0_participant_count_to_advance_per_group": 2
          
         
         
         # REGISTRATION
         
         
-        "tournament[teams]": False
-        "tournament[open_signup]": True
-        "tournament[public_sign_up]": True
-        "tournament[signup_cap]": 256
+        "tournament_teams": False
+        "tournament_open_signup_true": True
+        "tournament_public_sign_up": True
+        "tournament_signup_cap": 256
         "enable_check_in": False
-        "tournament[check_in_duration]": 0 #in minutes
-        "mark_as_tentative": {False if date != None else True}
-        "tournament[start_at]": "{date}"
+        "tournament_check_in_duration": 0 #in minutes
+        mark_as_tentative: "{False if date != None else True}"
+        "tournament_start_at": "{date}"
         
         
         # PREDICTIONS AND VOTING
         
         
-        "tournament[voting_enabled]": False
+        "tournament_voting_enabled": False
         "accept_predictions": False # == enable bracket predicitons
         
         
@@ -104,11 +104,11 @@ tournament:
         # EXPERIMENTAL FEATURES
         
         
-        "tournament[activate_fireball]": True
-        "tournament[non_elimination_tournament_data][email_verification_required]": True # == require participants to have verified emails
-        "tournament[activate_region_locking]": False
-        "tournament[allowed_regions]": []
-        "tournament[activate_prediction_custom_fields]": False
+        "tournament_activate_fireball": True
+        "tournament_non_elimination_tournament_data_email_verification_required": True # == require participants to have verified emails
+        "tournament_activate_region_locking": True
+        "tournament_allowed_regions": "CZ"
+        "tournament_activate_prediction_custom_fields": False
         
         
         
@@ -116,24 +116,26 @@ tournament:
         
         
         # Bracket
-        "tournament[hide_seeds]": False
-        "tournament[quick_advance]": False
-        "tournament[accept_attachments]": False
-        "tournament[show_rounds]": False
+        "tournament_hide_seeds": False
+        "tournament_quick_advance": False
+        "tournament_accept_attachments": False
+        "tournament_show_rounds": False
         
         # Tie Breaks
-        "tournament[tie_breaks]": ['match wins vs tied', 'median buchholz', 'points difference']
+        "tournament_tie_breaks_0": 'match wins vs tied'
+        "tournament_tie_breaks_1": 'median buchholz'
+        "tournament_tie_breaks_2": 'points difference'
         
         # Permisions
-        "tournament[allow_participant_match_reporting]": True
-        "tournament[private]": False
+        "tournament_allow_participant_match_reporting": True
+        "tournament_private": False
         "shared_administration": True
-        tournament[admin_ids_csv]: "5339908"
+        tournament_admin_ids_csv: "5339908"
         
         # Notifications
-        "tournament[notify_users_when_matches_open]": True
-        "tournament[notify_users_when_the_tournament_ends]": True
+        "tournament_notify_users_when_matches_open": True
+        "tournament_notify_users_when_the_tournament_ends": True
         
         # Misc
-        "tournament[hide_forum]": True #== show announcements tab
-        "tournament[optional_display_data]": True #== show standings tab
+        "tournament_hide_forum": True #== show announcements tab
+        "tournament_optional_display_data_show_standings": True #== show standings tab

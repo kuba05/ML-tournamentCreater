@@ -46,6 +46,10 @@ def formateConfig(config, parameters):
     """
     given parameters, it will call .format() on all string values in config
     """
+    
+    # let's get dirty!
+    locals().update(parameters)
+    
     formatedConfig = {}
     
     for key in config:
@@ -59,7 +63,10 @@ def formateConfig(config, parameters):
             formatedConfig[key] = config[key]
             continue
         
-        formatedConfig[key] = config[key].format(**parameters)
+        # we need to use f string, as we need to allow for complicated expresions
+        # see https://stackoverflow.com/questions/44757222/transform-string-to-f-string 
+        formatedConfig[key] = eval(f"f{repr(config[key])}")
+    
     return formatedConfig
         
 

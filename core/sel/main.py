@@ -60,8 +60,8 @@ def loginSelenium(driver):
     #fills the form in
     fillInFormSelenium(driver, loginForm,
         {
-            "user_session[username_or_email]": username,
-            "user_session[password]": password
+            "user_session_username_or_email": username,
+            "user_session_password": password
         }
     )
     
